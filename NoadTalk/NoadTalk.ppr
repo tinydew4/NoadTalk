@@ -1,0 +1,26 @@
+program NoadTalk;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFDEF UNIX}
+  cthreads,
+  {$ENDIF}
+  {$IFDEF HASAMIGA}
+  athreads,
+  {$ENDIF}
+  Interfaces, // this includes the CT adLCL widgetset
+  Forms, _fmmain, helper, kakaotalk, nateon
+  { you can add units after this };
+
+{$R *.res}
+
+begin
+  RequireDerivedFormResource:=True;
+  Application.Scaled:=True;
+  Application.ShowMainForm := False;
+  Application.Initialize;
+  Application.CreateForm(TfmMain, fmMain);
+  Application.Run;
+end.
+
