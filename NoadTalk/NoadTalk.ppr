@@ -10,13 +10,29 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the CT adLCL widgetset
-  Forms, _fmmain, helper, kakaotalk, nateon
+  Forms, _fmmain, helper, install, kakaotalk, nateon
   { you can add units after this };
 
 {$R *.res}
 
+function Preprocess: Boolean;
 begin
-  RequireDerivedFormResource:=True;
+  Result := False;
+  if ParamCount <= 0 then Exit;
+
+  Result := True;
+  case LowerCase(ParamStr(1)) of
+    '/install': install.Install;
+    '/uninstall': install.Uninstall;
+  else
+    Result := False;
+  end;
+end;
+
+begin
+  RequireDerivedFormResource := True;
+  if Preprocess then Exit;
+
   Application.Scaled:=True;
   Application.ShowMainForm := False;
   Application.Initialize;

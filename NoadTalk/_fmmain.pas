@@ -9,8 +9,9 @@
 interface
 
 uses
-  Classes, ExtCtrls, Forms, Menus, Registry, SysUtils, UniqueInstance,
-  fgl;
+  Classes, ExtCtrls, Forms, Menus, SysUtils, UniqueInstance, Windows,
+  fgl,
+  install;
 
 type
 
@@ -64,50 +65,21 @@ begin
 end;
 
 procedure TfmMain.TrayPopupPopup(Sender: TObject);
-var
-  Reg: TRegistry;
-  sName: unicodestring;
 begin
-  MiAutorun.Checked := False;
-
-  Reg := TRegistry.Create(KEY_WOW64_32KEY or KEY_READ);
-  try
-    Reg.RootKey := HKEY_LOCAL_MACHINE;
-    if not Reg.OpenKey('SOFTWARE\Microsoft\Windows\CurrentVersion\Run', False) then Exit;
-
-    for sName in Reg.GetValueNames do begin
-      if Reg.ReadString(sName) = unicodestring(ParamStr(0)) then begin
-        MiAutorun.Checked := True;
-        Break;
-      end;
-    end;
-  finally
-    Reg.Free;
-  end;
+  MiAutorun.Checked := install.Installed;
 end;
 
 procedure TfmMain.MiAutorunClick(Sender: TObject);
-var
-  Reg: TRegistry;
-  sName: unicodestring;
-begin
-  Reg := TRegistry.Create(KEY_WOW64_32KEY or KEY_ALL_ACCESS);
-  try
-    Reg.RootKey := HKEY_LOCAL_MACHINE;
-    if not Reg.OpenKey('SOFTWARE\Microsoft\Windows\CurrentVersion\Run', False) then Exit;
-
-    if MiAutorun.Checked then begin
-      for sName in Reg.GetValueNames do begin
-        if Reg.ReadString(sName) = unicodestring(ParamStr(0)) then begin
-          Reg.DeleteValue(sName);
-        end;
-      end;
-    end else begin
-      Reg.WriteString('NoadTalk', ParamStr(0));
+  function GetParams: string;
+  begin
+    case MiAutorun.Checked of
+      False: Result := '/install';
+      True: Result := '/uninstall';
     end;
-  finally
-    Reg.Free;
   end;
+
+begin
+  Windows.ShellExecute(0, 'runas', PChar(ParamStr(0)), PChar(GetParams), nil, SW_HIDE);
 end;
 
 procedure TfmMain.MiExitClick(Sender: TObject);

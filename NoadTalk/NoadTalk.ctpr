@@ -11,7 +11,6 @@
       <UseXPManifest Value="True"/>
       <XPManifest>
         <DpiAware Value="True"/>
-        <ExecutionLevel Value="requireAdministrator"/>
       </XPManifest>
       <Icon Value="0"/>
     </General>
@@ -19,7 +18,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="1"/>
-      <StringTable OriginalFilename="NoadTalk.exe" ProductName="Noad Talk" ProductVersion="0.1.0"/>
+      <RevisionNr Value="1"/>
+      <BuildNr Value="1"/>
+      <StringTable OriginalFilename="NoadTalk.exe" ProductName="Noad Talk" ProductVersion="0.1"/>
     </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>
@@ -63,6 +64,10 @@
       </Unit>
       <Unit>
         <Filename Value="nateon.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="install.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
