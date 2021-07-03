@@ -10,23 +10,26 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the CT adLCL widgetset
-  Forms, _fmmain, helper, install, kakaotalk, nateon
+  Forms, _fmmain, helper, install, kakaotalk, nateon, update, http
   { you can add units after this };
 
 {$R *.res}
 
 function Preprocess: Boolean;
 begin
-  Result := False;
-  if ParamCount <= 0 then Exit;
-
-  Result := True;
-  case LowerCase(ParamStr(1)) of
-    '/install': install.Install;
-    '/uninstall': install.Uninstall;
-  else
-    Result := False;
+  Result := (ParamCount > 0);
+  if Result then begin
+    case LowerCase(ParamStr(1)) of
+      '/install': install.Install;
+      '/uninstall': install.Uninstall;
+    else
+      Result := False;
+    end;
   end;
+
+  if Result then Exit;
+
+  Result := QueryUpdate;
 end;
 
 begin

@@ -34,6 +34,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="pl_Indy"/>
+      </Item>
+      <Item>
         <PackageName Value="pl_LuiControls"/>
       </Item>
       <Item>
@@ -68,6 +71,14 @@
       </Unit>
       <Unit>
         <Filename Value="install.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="update.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="http.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>

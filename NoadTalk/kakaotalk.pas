@@ -42,7 +42,7 @@ begin
     hTalk := FindWindowW('EVA_Window_Dblclk', PWideChar(sWindowText));
     if hTalk = 0 then Continue;
 
-    helper.HideWindow(FindWindowExW(hTalk, 0, 'EVA_Window', nil));
+    helper.HideWindow(FindWindowExW(hTalk, 0, 'BannerAdWnd', nil));
     StretchView(hTalk, LockView, 2);
     StretchView(hTalk, MainView, 62);
   end;
